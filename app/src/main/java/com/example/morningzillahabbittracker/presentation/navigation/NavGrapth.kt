@@ -5,7 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.example.morningzillahabbittracker.presentation.Form
+import com.example.morningzillahabbittracker.presentation.BodyWeight
 import com.example.morningzillahabbittracker.presentation.WearApp
 
 fun NavGraphBuilder.init(
@@ -14,13 +14,13 @@ fun NavGraphBuilder.init(
 ) {
     navigation(
         route = "main",
-        startDestination = "formScreen"
+        startDestination = "mainScreen"
     ) {
         composable("mainScreen") {
             WearApp(navController)
         }
         composable("formScreen") {
-            Form(navController)
+            BodyWeight(navController)
         }
     }
 }

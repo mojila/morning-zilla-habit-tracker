@@ -6,4 +6,5 @@
     -->
     <string name="hello_world">Morning Zilla Habit Tracker</string>
     <string name="body_weight">Body weight (kg)</string>
+    <string name="waist_size">Waist size (cm)</string>
 </resources>
