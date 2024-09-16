@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableFloatState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -20,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.Dp
@@ -30,10 +32,26 @@ import androidx.navigation.NavController
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Picker
 import androidx.wear.compose.material.Text
+import com.example.morningzillahabbittracker.R
+import java.util.Locale
+import kotlin.reflect.KProperty
+import kotlin.text.*
+
+class FormData {
+    var bodyWeight: Float by mutableFloatStateOf(70f)
+
+    fun increaseBodyWeight() {
+        this.bodyWeight += 0.01f
+    }
+
+    fun decreseBodyWeight() {
+        this.bodyWeight -= 0.01f
+    }
+}
 
 @Composable
 fun Form(navController: NavController) {
-    var bodyWeight by remember { mutableFloatStateOf(70F) }
+    var formData: FormData = FormData()
 
     Box(
         modifier = Modifier.fillMaxWidth().padding(
@@ -41,50 +59,64 @@ fun Form(navController: NavController) {
         ),
         contentAlignment = Alignment.Center
     ) {
-        Column {
-            Box(
-                modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-                Row {
-                    Text(text = "Body weight (kg)", textAlign = TextAlign.Center, fontSize = TextUnit(20F, TextUnitType.Sp))
-                }
-            }
-            Spacer(
-                modifier = Modifier.height(Dp(10F))
-            )
-            Box(
-                modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-                Row (
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    ButtonDecrease(
-                        onClick = {
-                            if (bodyWeight < 1) return@ButtonDecrease
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            BodyWeightSection(formData)
+        }
+    }
+}
 
-                            bodyWeight -= 0.01F
-                        }
+@Composable
+fun BodyWeightSection(formData: FormData) {
+    val bodyWeightStr = String.format(
+        locale = Locale.US,
+        format = "%.2f",
+        formData.bodyWeight,
+    )
+
+    Column {
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            Row {
+                Text(text = stringResource(R.string.body_weight), textAlign = TextAlign.Center, fontSize = TextUnit(20F, TextUnitType.Sp))
+            }
+        }
+        Spacer(
+            modifier = Modifier.height(Dp(10F))
+        )
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            Row (
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                ButtonDecrease(
+                    onClick = {
+                        formData.decreseBodyWeight()
+                    }
+                )
+                Text(
+                    text = bodyWeightStr,
+                    fontSize = TextUnit(
+                        value = 50F,
+                        type = TextUnitType.Sp
+                    ),
+                    modifier = Modifier.padding(
+                        start = 5.dp,
+                        end = 5.dp,
                     )
-                    Text(
-                        text = String.format(format = "%.2f", bodyWeight),
-                        fontSize = TextUnit(
-                            value = 50F,
-                            type = TextUnitType.Sp
-                        ),
-                        modifier = Modifier.padding(
-                            start = 5.dp,
-                            end = 5.dp,
-                        )
-                    )
-                    ButtonIncrease(
-                        onClick = {
-                            bodyWeight += 0.01F
-                        }
-                    )
-                }
+                )
+                ButtonIncrease(
+                    onClick = {
+                        formData.increaseBodyWeight()
+                    }
+                )
             }
         }
     }

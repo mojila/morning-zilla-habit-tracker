@@ -10,6 +10,7 @@ activityCompose = "1.9.2"
 coreSplashscreen = "1.0.1"
 navigationCompose = "2.8.0"
 material3Android = "1.3.0"
+room = "2.6.1"
 
 [libraries]
 play-services-wearable = { group = "com.google.android.gms", name = "play-services-wearable", version.ref = "playServicesWearable" }
@@ -26,6 +27,8 @@ activity-compose = { group = "androidx.activity", name = "activity-compose", ver
 core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "coreSplashscreen" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
+room-runtime = {group="androidx.room", name="room-runtime", version.ref="room"}
+room-compiler = {group="androidx.room", name="room-compiler", version.ref="room"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

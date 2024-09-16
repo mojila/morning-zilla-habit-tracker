@@ -49,7 +49,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.play.services.wearable)
     implementation(platform(libs.compose.bom))
     implementation(libs.ui)
@@ -61,9 +60,9 @@ dependencies {
     implementation(libs.core.splashscreen)
     implementation(libs.navigation.compose)
     implementation(libs.material3.android)
+    implementation(libs.room.runtime)
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
-
 }
